@@ -8,8 +8,82 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
-    
-    
+    <!--header section-->
+    <header>
+        <div class="navbar bg-dark text-white justify-content-center">
+            <h1 class="mb-0 h1">Weather Dashboard</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container-fluid">
+            <div class="row p-3">
+                <!--left column-->
+                <div class="col col-3">
+                    <div>
+                        <h4>Search By City:</h4>
+                    </div>
+                    <div class="input-group mt-1 mb-1">
+                        <input type="text" class="form-control" placeholder="ex: Los Angeles" id="search-input">
+                        <div class="input-group-append">
+                          <button id="search-btn" class="btn btn-dark" type="button">Search</button>
+                        </div>
+                    </div>
+                    <!--search history column-->
+                    <div class="list-group" id="search-history"></div>
+                </div>
+                <!--right column-->
+                <div class="col col-9">
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">
+                            <h2 id="header-city" class="text-uppercase"></h2>
+                            <h3 id="header-date"></h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Temperature: <span id="temp">98</span></p>
+                            <p>Humidity: <span id="humid">3%</span></p>
+                            <p>Wind Speed: <span id="wind">12 MPH</span></p>
+                            <p>UV Index: <span id="uv">13</span></p>
+                        </div>
+                    </div>
+                    <div class="card mt-1">
+                        <div class="card-header bg-dark text-white">
+                            <h2>5 Day Forecast</h2>
+                        </div>
+                        <div class="card-body card-columns">
+                            <div class="card p-3 w-50">
+                                <div class="card-title">
+                                    <h4>01/01/01</h4>
+                                </div>
+                                <div class="card-text">
+                                    <p>Temp: </p>
+                                    <p>Humidity: </p>
+                                </div>
+                            </div>
+                            <div class="card p-3 w-50">
+                                <div class="card-title">
+                                    <h4>01/01/01</h4>
+                                </div>
+                                <div class="card-text">
+                                    <p>Temp: </p>
+                                    <p>Humidity: </p>
+                                </div>
+                            </div>
+                            <div class="card p-3 w-50">
+                                <div class="card-title">
+                                    <h4>01/01/01</h4>
+                                </div>
+                                <div class="card-text">
+                                    <p>Temp: </p>
+                                    <p>Humidity: </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
