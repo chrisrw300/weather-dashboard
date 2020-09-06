@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/styles.css">
     <title>Weather Dashboard</title>
@@ -25,7 +26,7 @@
                     <div class="input-group mt-1 mb-1">
                         <input type="text" class="form-control" placeholder="ex: Los Angeles" id="search-input">
                         <div class="input-group-append">
-                          <button id="search-btn" class="btn btn-dark" type="button">Search</button>
+                          <button id="search-btn" class="btn btn-dark" type="button"><i class="fa fa-search"></i></button>
                         </div>
                     </div>
                     <!--search history column-->
@@ -35,58 +36,33 @@
                 <div class="col col-9">
                     <div class="card">
                         <div class="card-header bg-dark text-white">
-                            <h2 id="header-city" class="text-uppercase"></h2>
-                            <h3 id="header-date"></h3>
+                            <!--place and date-->
+                            <h2 class="text-uppercase"><span id="header-city"></span> (<span id="header-date"></span>)</h2>
                         </div>
                         <div class="card-body">
-                            <p>Temperature: <span id="temp">98</span></p>
-                            <p>Humidity: <span id="humid">3%</span></p>
-                            <p>Wind Speed: <span id="wind">12 MPH</span></p>
-                            <p>UV Index: <span id="uv">13</span></p>
+                            <p>Temperature: <span id="temp"></span></p>
+                            <p>Humidity: <span id="humid"></span></p>
+                            <p>Wind Speed: <span id="wind"></span></p>
+                            <p>UV Index: <span id="uv"></span></p>
                         </div>
                     </div>
-                    <div class="card mt-1">
+                    <div class="card mt-1" >
                         <div class="card-header bg-dark text-white">
                             <h2>5 Day Forecast</h2>
                         </div>
-                        <div class="card-body card-columns">
-                            <div class="card p-3 w-50">
-                                <div class="card-title">
-                                    <h4>01/01/01</h4>
-                                </div>
-                                <div class="card-text">
-                                    <p>Temp: </p>
-                                    <p>Humidity: </p>
-                                </div>
-                            </div>
-                            <div class="card p-3 w-50">
-                                <div class="card-title">
-                                    <h4>01/01/01</h4>
-                                </div>
-                                <div class="card-text">
-                                    <p>Temp: </p>
-                                    <p>Humidity: </p>
-                                </div>
-                            </div>
-                            <div class="card p-3 w-50">
-                                <div class="card-title">
-                                    <h4>01/01/01</h4>
-                                </div>
-                                <div class="card-text">
-                                    <p>Temp: </p>
-                                    <p>Humidity: </p>
-                                </div>
-                            </div>
+                        <div class="card-body card-columns" id="forecast-card">
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg==" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
