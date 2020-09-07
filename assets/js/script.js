@@ -62,7 +62,32 @@ function getWeather() {
         //add catch to handle errors   
 )
 forecastData();
+forecastUv();
 }
+
+var forecastUv = function(lat, lon) {
+    var latCoor = lat;
+    var lonCoor = lon;
+    var uvApi = "https://api.openweathermap.org/data/2.5/uvi?appid=86c24a05a9ee394be1a05ee64605e1cb&lat=" + latCoor + "&lon=" + lonCoor;
+    fetch(uvApi)
+    .then(function (response) {
+        var data = response.json();
+        return data;
+    })
+    .then(function (data) {
+        weather.uv = Math.round(data.value);
+        uvEl.setAttribute("class", "info-text");
+        if (weather.uv <= 2) {
+            uvEl.setAttribute("class", "bg-info");
+        } else if (weather.uv > 2 && weather.uv < 8) {
+            uvEl.setAttribute("class", "bg-warning");
+        } else if (weather.uv >= 8) {
+            uvEl.setAttribute("class", "bg-danger");
+        }
+        uvEl.innerHTML = weather.uv;
+    })
+}
+
 
 function forecastData() {
     forecastApi = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchInput.value + "&units=imperial" + apiKey;
@@ -78,36 +103,37 @@ function forecastData() {
             .then(function(response) {
                     for (var i = 0; i < response.list.length; i+=8) {
                         console.log(response, "it works");
-                        var dayCycle = [i]/8+1
-                        
+                        //creates div to hold cards
                         var createCardEl = document.createElement("div");
-                        createCardEl.setAttribute("class", "card bg-dark text-white");
+                        createCardEl.setAttribute("class", "card p-0 m-1 text-center");
                         createCardEl.setAttribute("style", "width: 200px");
+                        //forecast header
                         var forecastHeaderEl = document.createElement("h2");
-                        forecastHeaderEl.setAttribute("class", "card-text");
+                        forecastHeaderEl.setAttribute("class", "card-text bg-dark text-white");
                         var forecastDay = moment(response.list[i].dt_txt).format("dddd");
                         forecastHeaderEl.innerHTML = forecastDay;
-
+                        //forecast temperature
                         var forecastTempEl = document.createElement("p");
-                        forecastTempEl.setAttribute("class", "card-text info-text");
+                        forecastTempEl.setAttribute("class", "card-text info-text p-2 bg-dark text-white m-0");
                         var forecastDayTemp = response.list[i].main.temp;
-                        forecastTempEl.innerHTML = forecastDayTemp + "<span>°F</span>";
-
+                        forecastTempEl.innerHTML = "Temp: " + forecastDayTemp + "<span> °F</span>";
+                        //forecase humidity
                         var forecastHumidEl = document.createElement("p");
-                        forecastHumidEl.setAttribute("class", "card-text info-text");
+                        forecastHumidEl.setAttribute("class", "card-text info-text p-2 bg-dark text-white m-0");
                         var forecastDayHumid = response.list[i].main.humidity;
-                        forecastHumidEl.innerHTML = forecastDayHumid;
-
+                        forecastHumidEl.innerHTML = "Humidity: " + forecastDayHumid + " %";
+                        //forecast icon
                         var forecastIconEl = document.createElement("p");
                         forecastIconEl.setAttribute("class", "card-image-top");
-                        var ForecastDayIcon = response.list[i].weather[0].icon;
-                        forecastIconEl.innerHTML = '<img src="assets/images/' + ForecastDayIcon + '.png"/>';
-
+                        var forecastDayIcon = response.list[i].weather[0].icon;
+                        forecastIconEl.innerHTML = '<img src="./assets/img/' + forecastDayIcon + '.png"/>';
+                        console.log(forecastIconEl);
+                        //append all info to card
                         createCardEl.appendChild(forecastHeaderEl);
                         createCardEl.appendChild(forecastIconEl);
                         createCardEl.appendChild(forecastTempEl);
                         createCardEl.appendChild(forecastHumidEl);
-
+                        //appends card to div
                         forecastCardEl.appendChild(createCardEl);
                     }
                 })
