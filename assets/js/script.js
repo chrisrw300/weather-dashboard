@@ -109,7 +109,7 @@ function forecastData() {
                         createCardEl.setAttribute("style", "width: 200px");
                         //forecast header
                         var forecastHeaderEl = document.createElement("h2");
-                        forecastHeaderEl.setAttribute("class", "card-text bg-dark text-white");
+                        forecastHeaderEl.setAttribute("class", "card-text bg-dark text-white p-1");
                         var forecastDay = moment(response.list[i].dt_txt).format("dddd");
                         forecastHeaderEl.innerHTML = forecastDay;
                         //forecast temperature
