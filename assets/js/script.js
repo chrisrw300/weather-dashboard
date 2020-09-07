@@ -9,12 +9,7 @@ var tempEl = document.querySelector("#temp");
 var humidEl = document.querySelector("#humid");
 var windEl = document.querySelector("#wind");
 var uvEl = document.querySelector("#uv");
-var cardEl = document.querySelector("#forecast-card");
-// var cardEl = document.querySelector("#card-body");
-// var cardDate = document.querySelector("#card-date");
-// var cardIcon = document.querySelector("#card-weather-icon");
-// var cardTemp = document.querySelector("#card-temp");
-// var cardHumid = document.querySelector("#card-humid");
+var forecastCardEl = document.querySelector("#forecast-card");
 
 //today's date
 var currentDay = moment().format("L");
@@ -70,50 +65,55 @@ forecastData();
 }
 
 function forecastData() {
-    apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchInput.value + "&units=imperial" + apiKey + "&cnt=15";
-    fetch(apiUrl)
+    forecastApi = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchInput.value + "&units=imperial" + apiKey;
+    
+    forecastCardEl.innerHTML = "";
+    
+    fetch(forecastApi)
         .then(function(response) {
             if (response.ok) {
                 console.log(response);
-                response.json().then(function(fiveDayForecast) {
-                    for (var i = 0; i < fiveDayForecast.list.length; i+=8) {
-                        console.log(fiveDayForecast, "it works");
-                        var forecastObj = {
-                            date: fiveDayForecast.list[i].dt_txt,
-                            temp: fiveDayForecast.list[i].main.temp,
-                            humidity: fiveDayForecast.list[i].main.humidity
-                        }
-                        console.log(forecastObj, "string")
-                        var dateStr = forecastObj.date;
-                        var trimmedDate = dateStr.substring(0, 10);
-                        console.log(trimmedDate, "Hello")
-                        createForecastCards(trimmedDate, forecastObj.temp, forecastObj.humidity);
+                return response.json();
+        }})
+            .then(function(response) {
+                    for (var i = 0; i < response.list.length; i+=8) {
+                        console.log(response, "it works");
+                        var dayCycle = [i]/8+1
+                        
+                        var createCardEl = document.createElement("div");
+                        createCardEl.setAttribute("class", "card bg-dark text-white");
+                        createCardEl.setAttribute("style", "width: 200px");
+                        var forecastHeaderEl = document.createElement("h2");
+                        forecastHeaderEl.setAttribute("class", "card-text");
+                        var forecastDay = moment(response.list[i].dt_txt).format("dddd");
+                        forecastHeaderEl.innerHTML = forecastDay;
+
+                        var forecastTempEl = document.createElement("p");
+                        forecastTempEl.setAttribute("class", "card-text info-text");
+                        var forecastDayTemp = response.list[i].main.temp;
+                        forecastTempEl.innerHTML = forecastDayTemp + "<span>°F</span>";
+
+                        var forecastHumidEl = document.createElement("p");
+                        forecastHumidEl.setAttribute("class", "card-text info-text");
+                        var forecastDayHumid = response.list[i].main.humidity;
+                        forecastHumidEl.innerHTML = forecastDayHumid;
+
+                        var forecastIconEl = document.createElement("p");
+                        forecastIconEl.setAttribute("class", "card-image-top");
+                        var ForecastDayIcon = response.list[i].weather[0].icon;
+                        forecastIconEl.innerHTML = '<img src="assets/images/' + ForecastDayIcon + '.png"/>';
+
+                        createCardEl.appendChild(forecastHeaderEl);
+                        createCardEl.appendChild(forecastIconEl);
+                        createCardEl.appendChild(forecastTempEl);
+                        createCardEl.appendChild(forecastHumidEl);
+
+                        forecastCardEl.appendChild(createCardEl);
                     }
                 })
-            }
-        })
+            
 }
 
-function createForecastCards(date, temp, humidity) {
-    //HTML elements created for card
-    console.log(date + " + " + temp + " + " + humidity);
-    var forecastCardEl = document.createElement("div").setAttribute("class", "card");
-    var cardDateEl = document.createElement("h3").setAttribute("class", "card-header");
-    var cardTempEl = document.createElement("p").setAttribute("class", "card-text");
-    var cardHumidityEl = document.createElement("p").setAttribute("class", "card-text"); 
-    console.log(date + " + " + temp + " + " + humidity + "TESTING");
-
-    cardDateEl.textContent(date);
-    cardTempEl.textContent('Temp:' + temp);
-    cardHumidityEl.textContent('Humidity' + humidity + '%');
-
-    cardEl.appendChild(forecastCardEl);
-    console.log(forecastCardEl)
-    
-    
-    // forecastCardEl.append(cardDateEl, /*icon*/ cardTempEl, cardHumidityEl);
-    // cardEl.appendChild(forecastCardEl);
-}
 
 
 
